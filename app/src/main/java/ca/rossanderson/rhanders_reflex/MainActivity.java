@@ -1,9 +1,12 @@
 package ca.rossanderson.rhanders_reflex;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -11,6 +14,29 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Button btnReactionTimer = (Button) findViewById(R.id.menuBtnReactionTimer);
+        Button btnGameShow = (Button) findViewById(R.id.menuBtnGameShow);
+        Button btnStats = (Button) findViewById(R.id.menuBtnStats);
+
+        btnReactionTimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ReactionTimerActivity.class));
+            }
+        });
+        btnGameShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), GameShowActivity.class));
+            }
+        });
+        btnStats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), StatsActivity.class));
+            }
+        });
     }
 
     @Override

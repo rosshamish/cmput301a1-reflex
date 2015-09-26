@@ -16,6 +16,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".StatsActivity"
+            android:label="@string/title_activity_stats" >
+        </activity>
+        <activity
+            android:name=".ReactionTimerActivity"
+            android:label="@string/title_activity_reaction_timer" >
+        </activity>
+        <activity
+            android:name=".GameShowActivity"
+            android:label="@string/title_activity_game_show" >
+        </activity>
     </application>
 
 </manifest>
