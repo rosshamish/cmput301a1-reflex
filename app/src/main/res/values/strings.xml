@@ -6,4 +6,5 @@
     <string name="title_activity_stats">StatsActivity</string>
     <string name="title_activity_reaction_timer">ReactionTimerActivity</string>
     <string name="title_activity_game_show">GameShowActivity</string>
+    <string name="reactionClick">GO!</string>
 </resources>

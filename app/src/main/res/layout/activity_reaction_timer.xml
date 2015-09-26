@@ -8,6 +8,33 @@
 
     <TextView android:text="Reaction Timer" android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/reactionTimerText" />
+        android:id="@+id/txtReactionTime"
+        android:enabled="false"
+        android:textSize="@dimen/abc_text_size_display_1_material"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true" />
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/btnReaction"
+        android:src="@drawable/rha_btn_red"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="20dip"
+        android:layout_marginBottom="80dip" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/reactionClick"
+        android:id="@+id/txtReactionGo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        android:textStyle="bold"
+        android:textSize="@dimen/abc_text_size_display_2_material" />
 
 </RelativeLayout>
