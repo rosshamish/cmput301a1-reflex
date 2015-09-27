@@ -48,14 +48,16 @@ public class ReactionTimerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Long elapsed = activity.reactionTimer.getElapsed();
+                TextView tv = (TextView) findViewById(R.id.txtReactionTime);
                 if (elapsed == null) {
-                    // TODO display error message
+                    // display error message
+                    tv.setText("Too early!");
                 } else {
                     // display reactionTime
-                    TextView tv = (TextView) findViewById(R.id.txtReactionTime);
-                    tv.setText(String.valueOf(elapsed));
+                    tv.setText(String.valueOf(elapsed).concat("ms"));
 
-                    // TODO persist reactionDelay
+                    // persist reactionDelay
+                    StatsModel.getStatsModel().saveReactionTime(elapsed, getApplicationContext());
                 }
                 activity.reactionTimer.restart();
             }
