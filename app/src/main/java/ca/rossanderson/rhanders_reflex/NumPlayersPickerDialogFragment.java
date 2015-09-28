@@ -32,11 +32,10 @@ public class NumPlayersPickerDialogFragment extends DialogFragment {
         builder.setMessage(R.string.numPlayersMsg)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // Handled in onValueChange
+                        dialogListener.onValueAccept();
                     }
                 })
                 .setView(np);
-        // Create the AlertDialog object and return it
         return builder.create();
     }
 
@@ -53,6 +52,7 @@ public class NumPlayersPickerDialogFragment extends DialogFragment {
 
     public interface DialogListener {
         public void onValueChange(int oldVal, int newVal);
+        public void onValueAccept();
     }
 }
 

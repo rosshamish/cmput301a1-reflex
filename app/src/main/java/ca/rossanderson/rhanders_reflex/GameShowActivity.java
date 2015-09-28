@@ -4,13 +4,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class GameShowActivity extends AppCompatActivity implements NumPlayersPickerDialogFragment.DialogListener {
+
+    private GameShow gameShow;
+    int[] layoutIds = {-1, -1,
+            R.layout.game_show_2player,
+            R.layout.game_show_3player,
+            R.layout.game_show_4player};
+    int[] buttonIds = {R.id.imageButton, R.id.imageButton2, R.id.imageButton3, R.id.imageButton4};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_show);
+
+        gameShow = new GameShow();
 
         NumPlayersPickerDialogFragment picker = new NumPlayersPickerDialogFragment();
         picker.show(getFragmentManager(), "picker");
@@ -38,8 +49,21 @@ public class GameShowActivity extends AppCompatActivity implements NumPlayersPic
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
     public void onValueChange(int oldVal, int newVal) {
+        gameShow.setNumPlayers(newVal);
+        this.setContentView(layoutIds[gameShow.getNumPlayers()]);
+    }
 
+    public void onValueAccept() {
+        Button b;
+        for (int btnId : buttonIds) {
+            b = (Button) findViewById(btnId);
+            b.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+        }
     }
 }

@@ -13,4 +13,8 @@
         NumPlayersPickerDialogFragment
     </string>
     <string name="numPlayersMsg">Number of players</string>
+    <string name="rha_gameshow_player1">Player 1</string>
+    <string name="rha_gameshow_player2">Player 2</string>
+    <string name="rha_gameshow_player3">Player 3</string>
+    <string name="rha_gameshow_player4">Player 4</string>
 </resources>
