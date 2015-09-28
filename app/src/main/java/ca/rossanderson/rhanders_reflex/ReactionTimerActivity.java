@@ -1,20 +1,16 @@
 package ca.rossanderson.rhanders_reflex;
 
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import android.app.DialogFragment;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-
-public class ReactionTimerActivity extends AppCompatActivity {
+public class ReactionTimerActivity extends AppCompatActivity
+        implements ReactionTimerInfoDialogFragment.DialogListener {
 
     private ReactionTimer reactionTimer;
 
@@ -24,7 +20,8 @@ public class ReactionTimerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reaction_timer);
 
         // TODO present info dialog
-        //
+        DialogFragment infoDialog = new ReactionTimerInfoDialogFragment();
+        infoDialog.show(getFragmentManager(), "info");
 
         this.reactionTimer = new ReactionTimer() {
             @Override
@@ -67,7 +64,6 @@ public class ReactionTimerActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        this.reactionTimer.start();
     }
 
     @Override
@@ -92,4 +88,8 @@ public class ReactionTimerActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onDialogDismiss() {
+        this.reactionTimer.start();
+    }
 }

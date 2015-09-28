@@ -7,4 +7,6 @@
     <string name="title_activity_reaction_timer">ReactionTimerActivity</string>
     <string name="title_activity_game_show">GameShowActivity</string>
     <string name="reactionClick">GO!</string>
+    <string name="reactionTimerInfoMsg">When you see \'GO!\', tap the red button as fast as possible.
+        Your best, worst, and average performance will be recorded.</string>
 </resources>
