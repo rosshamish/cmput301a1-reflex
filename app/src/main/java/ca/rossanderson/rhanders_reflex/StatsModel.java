@@ -74,6 +74,23 @@ public class StatsModel {
         return result;
     }
 
+    public void saveReactionTime(Long elapsed, Context cxt) {
+        // Read from disk, deserialize
+        ArrayList<Long> times = readReactionTimesFromFile(cxt);
+
+        // Prepend to the list
+        times.add(0, elapsed);
+
+        // Serialize, write to disk
+        writeReactionTimesToFile(times, cxt);
+    }
+
+    public void clear(Context cxt) {
+        writeReactionTimesToFile(new ArrayList<Long>(), cxt);
+
+        // TODO erase gameshow stats too
+    }
+
     private ArrayList<Long> readReactionTimesFromFile(Context cxt) {
         ArrayList<Long> times = null;
         Gson gson = new Gson();
@@ -108,16 +125,6 @@ public class StatsModel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    public void saveReactionTime(Long elapsed, Context cxt) {
-        // Read from disk, deserialize
-        ArrayList<Long> times = readReactionTimesFromFile(cxt);
-
-        // Prepend to the list
-        times.add(0, elapsed);
-
-        // Serialize, write to disk
-        writeReactionTimesToFile(times, cxt);
     }
 
     private String getBasePath(Context cxt) {

@@ -168,4 +168,26 @@
         </TableRow>
 
     </TableLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Erase"
+        android:id="@+id/btnErase"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:background="#c5001c"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:id="@+id/btnEmail"
+        android:layout_alignTop="@+id/btnErase"
+        android:layout_alignParentEnd="true"
+        android:background="@color/button_material_light" />
 </RelativeLayout>
