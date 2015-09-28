@@ -9,4 +9,8 @@
     <string name="reactionClick">GO!</string>
     <string name="reactionTimerInfoMsg">When you see \'GO!\', tap the red button as fast as possible.
         Your best, worst, and average performance will be recorded.</string>
+    <string name="title_activity_num_players_picker_dialog_fragment">
+        NumPlayersPickerDialogFragment
+    </string>
+    <string name="numPlayersMsg">Number of players</string>
 </resources>

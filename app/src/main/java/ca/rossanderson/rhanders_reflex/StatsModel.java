@@ -1,6 +1,7 @@
 package ca.rossanderson.rhanders_reflex;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -75,20 +76,19 @@ public class StatsModel {
     }
 
     public void saveReactionTime(Long elapsed, Context cxt) {
-        // Read from disk, deserialize
         ArrayList<Long> times = readReactionTimesFromFile(cxt);
-
-        // Prepend to the list
         times.add(0, elapsed);
-
-        // Serialize, write to disk
         writeReactionTimesToFile(times, cxt);
+    }
+    public void saveGameShowBuzz(Integer players, Integer player, Context cxt) {
+        HashMap<Integer, HashMap<Integer, Integer>> buzzes = readGameShowBuzzesFromFile(cxt);
+        buzzes.get(players).put(player, buzzes.get(players).get(player)+1);
+        writeGameShowBuzzesToFile(buzzes, cxt);
     }
 
     public void clear(Context cxt) {
         writeReactionTimesToFile(new ArrayList<Long>(), cxt);
-
-        // TODO erase gameshow stats too
+        writeGameShowBuzzesToFile(new HashMap<Integer, HashMap<Integer, Integer>>(), cxt);
     }
 
     private ArrayList<Long> readReactionTimesFromFile(Context cxt) {
@@ -102,7 +102,7 @@ public class StatsModel {
             times = gson.fromJson(reader, type);
             fis.close();
         } catch (FileNotFoundException e) {
-            System.err.println(String.format("File not found at '{}'", getReactionTimesPath(cxt)));
+            Log.e("Stats", String.format("File not found at '{}'", getReactionTimesPath(cxt)));
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
@@ -118,6 +118,42 @@ public class StatsModel {
             FileOutputStream fos = new FileOutputStream(getReactionTimesPath(cxt));
             OutputStreamWriter writer = new OutputStreamWriter(fos);
             gson.toJson(times, writer);
+            writer.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private HashMap<Integer, HashMap<Integer, Integer>> readGameShowBuzzesFromFile(Context cxt) {
+        HashMap<Integer, HashMap<Integer, Integer>> buzzes = null;
+        Gson gson = new Gson();
+        try {
+            FileInputStream fis = new FileInputStream(getGameShowPath(cxt));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+
+            Type type = new TypeToken<HashMap<Integer, HashMap<Integer, Integer>>>() {}.getType();
+            buzzes = gson.fromJson(reader, type);
+            fis.close();
+        } catch (FileNotFoundException e) {
+            Log.e("Stats", String.format("File not found at '{}'", getGameShowPath(cxt)));
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (buzzes == null) {
+            buzzes = new HashMap<Integer, HashMap<Integer, Integer>>();
+        }
+        return buzzes;
+    }
+    private void writeGameShowBuzzesToFile(HashMap<Integer, HashMap<Integer, Integer>> buzzes, Context cxt) {
+        Gson gson = new Gson();
+        try {
+            FileOutputStream fos = new FileOutputStream(getReactionTimesPath(cxt));
+            OutputStreamWriter writer = new OutputStreamWriter(fos);
+            gson.toJson(buzzes, writer);
             writer.flush();
             fos.close();
         } catch (FileNotFoundException e) {

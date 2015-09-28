@@ -28,6 +28,10 @@
             android:name=".GameShowActivity"
             android:label="@string/title_activity_game_show" >
         </activity>
+        <activity
+            android:name=".NumPlayersPickerDialogFragment"
+            android:label="@string/title_activity_num_players_picker_dialog_fragment" >
+        </activity>
     </application>
 
 </manifest>

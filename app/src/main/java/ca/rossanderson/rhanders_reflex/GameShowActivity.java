@@ -5,12 +5,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class GameShowActivity extends AppCompatActivity {
+public class GameShowActivity extends AppCompatActivity implements NumPlayersPickerDialogFragment.DialogListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_show);
+
+        NumPlayersPickerDialogFragment picker = new NumPlayersPickerDialogFragment();
+        picker.show(getFragmentManager(), "picker");
     }
 
     @Override
@@ -33,5 +36,10 @@ public class GameShowActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onValueChange(int oldVal, int newVal) {
+
     }
 }
