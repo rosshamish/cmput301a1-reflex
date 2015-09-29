@@ -11,7 +11,8 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
-public class GameShowActivity extends AppCompatActivity implements NumPlayersPickerDialogFragment.DialogListener {
+public class GameShowActivity extends AppCompatActivity
+        implements NumPlayersPickerDialogFragment.DialogListener {
 
     private GameShow gameShow;
     int[] layoutIds = {-1, -1,
@@ -71,12 +72,13 @@ public class GameShowActivity extends AppCompatActivity implements NumPlayersPic
         Button b;
         for (int i=0; i < gameShow.getNumPlayers(); i++) {
             b = (Button) findViewById(buttonIds.get(i));
-            final int playerCount = i+1;
+            final int playerNum = i+1;
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.i("gameShow", String.format("playerCount=%d", playerCount));
-                    StatsModel.getStatsModel().saveGameShowBuzz(gameShow.getNumPlayers(), playerCount, getApplicationContext());
+                    StatsModel.getStatsModel().saveGameShowBuzz(gameShow.getNumPlayers(), playerNum, getApplicationContext());
+                    GameShowBuzzerPressNotifierDialogFragment f = GameShowBuzzerPressNotifierDialogFragment.newInstance(playerNum);
+                    f.show(getFragmentManager(), "playerBuzzed");
                 }
             });
         }
