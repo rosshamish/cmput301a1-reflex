@@ -82,7 +82,7 @@ public class StatsModel {
     }
     public void saveGameShowBuzz(Integer players, Integer player, Context cxt) {
         HashMap<Integer, HashMap<Integer, Integer>> buzzes = readGameShowBuzzesFromFile(cxt);
-        buzzes.get(players).put(player, buzzes.get(players).get(player)+1);
+        buzzes.get(players).put(player, buzzes.get(players).get(player) + 1);
         writeGameShowBuzzesToFile(buzzes, cxt);
     }
 
@@ -146,12 +146,23 @@ public class StatsModel {
         if (buzzes == null) {
             buzzes = new HashMap<Integer, HashMap<Integer, Integer>>();
         }
+        // Fill with zeros: <[2-4], <[1-4], 0>>
+        for (int players=2; players <= 4; players++) {
+            for (int playerNum=1; playerNum <= players; playerNum++) {
+                if (buzzes.get(players) == null) {
+                    buzzes.put(players, new HashMap<Integer, Integer>());
+                }
+                if (buzzes.get(players).get(playerNum) == null) {
+                    buzzes.get(players).put(playerNum, 0);
+                }
+            }
+        }
         return buzzes;
     }
     private void writeGameShowBuzzesToFile(HashMap<Integer, HashMap<Integer, Integer>> buzzes, Context cxt) {
         Gson gson = new Gson();
         try {
-            FileOutputStream fos = new FileOutputStream(getReactionTimesPath(cxt));
+            FileOutputStream fos = new FileOutputStream(getGameShowPath(cxt));
             OutputStreamWriter writer = new OutputStreamWriter(fos);
             gson.toJson(buzzes, writer);
             writer.flush();

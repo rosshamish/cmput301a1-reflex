@@ -2,10 +2,14 @@ package ca.rossanderson.rhanders_reflex;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+
+import java.util.ArrayList;
 
 public class GameShowActivity extends AppCompatActivity implements NumPlayersPickerDialogFragment.DialogListener {
 
@@ -14,14 +18,22 @@ public class GameShowActivity extends AppCompatActivity implements NumPlayersPic
             R.layout.game_show_2player,
             R.layout.game_show_3player,
             R.layout.game_show_4player};
-    int[] buttonIds = {R.id.imageButton, R.id.imageButton2, R.id.imageButton3, R.id.imageButton4};
+    ArrayList<Integer> buttonIds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_show);
+        // default 2 players
+        setContentView(getLayoutInflater().inflate(R.layout.game_show_2player, null));
 
         gameShow = new GameShow();
+        gameShow.setNumPlayers(2); // default 2 players
+        buttonIds = new ArrayList<Integer>() {{
+            add(R.id.imageButton);
+            add(R.id.imageButton2);
+            add(R.id.imageButton3);
+            add(R.id.imageButton4);
+        }};
 
         NumPlayersPickerDialogFragment picker = new NumPlayersPickerDialogFragment();
         picker.show(getFragmentManager(), "picker");
@@ -51,17 +63,20 @@ public class GameShowActivity extends AppCompatActivity implements NumPlayersPic
 
     public void onValueChange(int oldVal, int newVal) {
         gameShow.setNumPlayers(newVal);
-        this.setContentView(layoutIds[gameShow.getNumPlayers()]);
+        View v = getLayoutInflater().inflate(layoutIds[gameShow.getNumPlayers()], null);
+        setContentView(v);
     }
 
     public void onValueAccept() {
         Button b;
-        for (int btnId : buttonIds) {
-            b = (Button) findViewById(btnId);
+        for (int i=0; i < gameShow.getNumPlayers(); i++) {
+            b = (Button) findViewById(buttonIds.get(i));
+            final int playerCount = i+1;
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    Log.i("gameShow", String.format("playerCount=%d", playerCount));
+                    StatsModel.getStatsModel().saveGameShowBuzz(gameShow.getNumPlayers(), playerCount, getApplicationContext());
                 }
             });
         }
