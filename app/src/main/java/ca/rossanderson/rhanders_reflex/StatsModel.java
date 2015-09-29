@@ -94,6 +94,45 @@ public class StatsModel {
         writeReactionTimesToFile(new ArrayList<Long>(), cxt);
         writeGameShowBuzzesToFile(new HashMap<Integer, HashMap<Integer, Integer>>(), cxt);
     }
+    public String getEmailBody(Context cxt) {
+        String body = "";
+        body += "Reaction Timer\tLast 10\tLast 100\tAll Time\n";
+        body += String.format("Minimum\t%d\t%d\t%d\n",
+                getReactionTimeStat(StatType.MINIMUM, 10, cxt),
+                getReactionTimeStat(StatType.MINIMUM, 100, cxt),
+                getReactionTimeStat(StatType.MINIMUM, -1, cxt));
+        body += String.format("Maximum\t%d\t%d\t%d\n",
+                getReactionTimeStat(StatType.MAXIMUM, 10, cxt),
+                getReactionTimeStat(StatType.MAXIMUM, 100, cxt),
+                getReactionTimeStat(StatType.MAXIMUM, -1, cxt));
+        body += String.format("Average\t%d\t%d\t%d\n",
+                getReactionTimeStat(StatType.AVERAGE, 10, cxt),
+                getReactionTimeStat(StatType.AVERAGE, 100, cxt),
+                getReactionTimeStat(StatType.AVERAGE, -1, cxt));
+        body += String.format("Median\t%d\t%d\t%d\n",
+                getReactionTimeStat(StatType.MEDIAN, 10, cxt),
+                getReactionTimeStat(StatType.MEDIAN, 100, cxt),
+                getReactionTimeStat(StatType.MEDIAN, -1, cxt));
+        body += "\n";
+
+        body += "Game show\t\t# buzzes\n";
+        body += "\t2 Players\t3 Players\t4 Players\n";
+        body += String.format("Player 1\t%d\t%d\t%d\n",
+                getGameShowStat(2, 1, cxt),
+                getGameShowStat(3, 1, cxt),
+                getGameShowStat(4, 1, cxt));
+        body += String.format("Player 2\t%d\t%d\t%d\n",
+                getGameShowStat(2, 2, cxt),
+                getGameShowStat(3, 2, cxt),
+                getGameShowStat(4, 2, cxt));
+        body += String.format("Player 3\t\t%d\t%d\n",
+                getGameShowStat(3, 3, cxt),
+                getGameShowStat(4, 3, cxt));
+        body += String.format("Player 4\t\t\t%d\n",
+                getGameShowStat(4, 4, cxt));
+        body += "\n";
+        return body;
+    }
 
     private ArrayList<Long> readReactionTimesFromFile(Context cxt) {
         ArrayList<Long> times = null;

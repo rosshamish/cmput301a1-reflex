@@ -1,5 +1,6 @@
 package ca.rossanderson.rhanders_reflex;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,8 +8,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class StatsActivity extends AppCompatActivity {
@@ -21,7 +25,7 @@ public class StatsActivity extends AppCompatActivity {
         // load and display ReactionTimer stats
         displayReactionTimerStats();
 
-        // TODO load and display GameShow stats
+        // load and display GameShow stats
         displayGameShowStats();
 
         // Hook up Erase button
@@ -35,7 +39,24 @@ public class StatsActivity extends AppCompatActivity {
             }
         });
 
-        // TODO Hook up Email button
+        // Hook up Email button
+        Button btnEmail = (Button) findViewById(R.id.btnEmail);
+        btnEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("message/rfc822");
+                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"rhanders@ualberta.ca"});
+                String date = new SimpleDateFormat().format(new Date());
+                i.putExtra(Intent.EXTRA_SUBJECT, String.format("rhanders-reflex Statistics [%s]", date));
+                i.putExtra(Intent.EXTRA_TEXT, StatsModel.getStatsModel().getEmailBody(getApplicationContext()));
+                try {
+                    startActivity(Intent.createChooser(i, "Send mail..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(StatsActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void displayGameShowStats() {
