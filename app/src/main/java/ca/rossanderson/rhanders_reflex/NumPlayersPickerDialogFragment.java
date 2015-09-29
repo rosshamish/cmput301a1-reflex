@@ -23,7 +23,6 @@ public class NumPlayersPickerDialogFragment extends DialogFragment {
         np.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                Log.i("GameShow", "newVal=" + String.valueOf(newVal));
                 dialogListener.onValueChange(oldVal, newVal);
             }
         });

@@ -74,6 +74,10 @@ public class StatsModel {
 
         return result;
     }
+    public Integer getGameShowStat(Integer players, Integer player, Context cxt) {
+        HashMap<Integer, HashMap<Integer, Integer>> buzzes = readGameShowBuzzesFromFile(cxt);
+        return buzzes.get(players).get(player);
+    }
 
     public void saveReactionTime(Long elapsed, Context cxt) {
         ArrayList<Long> times = readReactionTimesFromFile(cxt);

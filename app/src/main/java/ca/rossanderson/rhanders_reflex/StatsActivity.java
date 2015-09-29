@@ -22,6 +22,7 @@ public class StatsActivity extends AppCompatActivity {
         displayReactionTimerStats();
 
         // TODO load and display GameShow stats
+        displayGameShowStats();
 
         // Hook up Erase button
         Button btnErase = (Button) findViewById(R.id.btnErase);
@@ -37,8 +38,33 @@ public class StatsActivity extends AppCompatActivity {
         // TODO Hook up Email button
     }
 
+    private void displayGameShowStats() {
+        StatsModel stats = StatsModel.getStatsModel();
+        ArrayList<Integer> resourceIds = new ArrayList<Integer>() {{
+            add(R.id.gs2p1);
+            add(R.id.gs2p2);
+            add(R.id.gs3p1);
+            add(R.id.gs3p2);
+            add(R.id.gs3p3);
+            add(R.id.gs4p1);
+            add(R.id.gs4p2);
+            add(R.id.gs4p3);
+            add(R.id.gs4p4);
+        }};
+        TextView tv;
+        int resCount = 0;
+        for (int players=2; players <= 4; players++) {
+            for (int playerNum=1; playerNum <= players; playerNum++) {
+                tv = (TextView) findViewById(resourceIds.get(resCount));
+                Integer stat = stats.getGameShowStat(players, playerNum, getApplicationContext());
+                tv.setText(String.valueOf(stat));
+                resCount++;
+            }
+        }
+    }
+
     private void displayReactionTimerStats() {
-        StatsModel model = StatsModel.getStatsModel();
+        StatsModel stats = StatsModel.getStatsModel();
         ArrayList<Integer> Ns = new ArrayList<Integer>() {{
             add(10);
             add(100);
@@ -69,7 +95,7 @@ public class StatsActivity extends AppCompatActivity {
         for (int i=0; i < statTypes.size(); i++) {
             for (int j=0; j < Ns.size(); j++) {
                 tv = (TextView) findViewById(resourceIds.get(resCount));
-                Long stat = model.getReactionTimeStat(statTypes.get(i), Ns.get(j), getApplicationContext());
+                Long stat = stats.getReactionTimeStat(statTypes.get(i), Ns.get(j), getApplicationContext());
                 tv.setText(String.valueOf(stat));
                 resCount++;
             }
