@@ -19,7 +19,7 @@ public class ReactionTimerActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reaction_timer);
 
-        // TODO present info dialog
+        // present info dialog
         DialogFragment infoDialog = new ReactionTimerInfoDialogFragment();
         infoDialog.show(getFragmentManager(), "info");
 
@@ -54,7 +54,7 @@ public class ReactionTimerActivity extends AppCompatActivity
                     tv.setText(String.valueOf(elapsed).concat("ms"));
 
                     // persist reactionDelay
-                    StatsModel.getStatsModel().saveReactionTime(elapsed, getApplicationContext());
+                    reactionTimer.saveReactionTime(elapsed, getApplicationContext());
                 }
                 activity.reactionTimer.restart();
             }

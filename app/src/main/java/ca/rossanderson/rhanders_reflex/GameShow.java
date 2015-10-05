@@ -1,5 +1,7 @@
 package ca.rossanderson.rhanders_reflex;
 
+import android.content.Context;
+
 /**
  * Created by ross on 15-09-28.
  */
@@ -13,5 +15,9 @@ public class GameShow {
     }
 
     private int numPlayers;
+
+    public void saveGameShowBuzz(Integer player, Context cxt) {
+        StatsModel.getStatsModel().saveGameShowBuzz(this.getNumPlayers(), player, cxt);
+    }
 
 }

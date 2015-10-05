@@ -76,7 +76,7 @@ public class GameShowActivity extends AppCompatActivity
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    StatsModel.getStatsModel().saveGameShowBuzz(gameShow.getNumPlayers(), playerNum, getApplicationContext());
+                    gameShow.saveGameShowBuzz(playerNum, getApplicationContext());
                     GameShowBuzzerPressNotifierDialogFragment f = GameShowBuzzerPressNotifierDialogFragment.newInstance(playerNum);
                     f.show(getFragmentManager(), "playerBuzzed");
                 }

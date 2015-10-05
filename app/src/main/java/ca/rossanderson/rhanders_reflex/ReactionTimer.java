@@ -21,8 +21,6 @@ import java.util.Random;
  * Created by ross on 15-09-26.
  */
 public abstract class ReactionTimer {
-    private static String STATS_FILENAME = "stats.json";
-
     private static Long MAX_DELAY = 2000L;
     private static Long MIN_DELAY = 50L;
 
@@ -51,12 +49,12 @@ public abstract class ReactionTimer {
         handler.postDelayed(this.onStartRunnable, this.randomDelay());
         this.onStart();
     }
-    public Long randomDelay() {
+    private Long randomDelay() {
         Random r = new Random();
         this.delay = (long)(r.nextInt((int)(MAX_DELAY - MIN_DELAY + 1)) + MIN_DELAY);
         return this.delay;
     }
-    public Long getDelay() {
+    private Long getDelay() {
         return this.delay;
     }
 
@@ -77,5 +75,9 @@ public abstract class ReactionTimer {
     public void restart() {
         this.kill();
         this.start();
+    }
+
+    public void saveReactionTime(Long elapsed, Context cxt) {
+        StatsModel.getStatsModel().saveReactionTime(elapsed, cxt);
     }
 }
