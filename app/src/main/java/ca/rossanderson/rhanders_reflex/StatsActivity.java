@@ -36,6 +36,7 @@ public class StatsActivity extends AppCompatActivity {
                 // TODO present dialog confirming this destructive action
                 StatsModel.getStatsModel().clear(getApplicationContext());
                 displayReactionTimerStats();
+                displayGameShowStats();
             }
         });
 
